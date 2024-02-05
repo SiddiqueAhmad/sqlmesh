@@ -197,6 +197,7 @@ function CodeEditorDefault({
   return (
     <div className={clsx('flex w-full h-full', className)}>
       <CodeMirror
+        data-testid="code-editor"
         height="100%"
         width="100%"
         className={clsx('flex w-full h-full font-mono text-xs', className)}

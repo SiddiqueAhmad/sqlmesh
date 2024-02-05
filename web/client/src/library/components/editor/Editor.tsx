@@ -28,7 +28,10 @@ function Editor(): JSX.Element {
   const tab = useStoreEditor(s => s.tab)
 
   return (
-    <div className="w-full h-full flex flex-col overflow-hidden">
+    <div
+      data-testid="editor"
+      className="w-full h-full flex flex-col overflow-hidden"
+    >
       <EditorTabs />
       <Divider />
       {isNil(tab) ? <EditorEmpty /> : <EditorMain tab={tab} />}

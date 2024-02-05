@@ -36,6 +36,7 @@ function PlanChangePreview({
 }): JSX.Element {
   return (
     <div
+      title={headline}
       className={clsx(
         'flex flex-col rounded-md p-4',
         type === EnumPlanChangeType.Add && 'bg-success-5',

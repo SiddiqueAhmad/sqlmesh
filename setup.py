@@ -38,7 +38,7 @@ setup(
         # Issue with Snowflake connector and cryptography 42+
         # Check here if they have added support: https://github.com/dbt-labs/dbt-snowflake/blob/main/dev-requirements.txt#L12
         "cryptography~=41.0.7",
-        "duckdb",
+        "duckdb==0.9.2",
         "dateparser",
         "fsspec",
         "hyperscript",

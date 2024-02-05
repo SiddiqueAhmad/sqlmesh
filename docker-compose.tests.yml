@@ -1,0 +1,65 @@
+version: "3.11"
+services:
+  test-sqlmesh-demo-sushi-chromium:
+    image: sqlmesh-base
+    container_name: test-sqlmesh-demo-sushi-chromium
+    environment:
+      - PROJECT_NAME=sushi
+      - UI_TEST_BROWSER=chromium
+
+  test-sqlmesh-demo-wursthall-chromium:
+    image: sqlmesh-base
+    container_name: test-sqlmesh-demo-wursthall-chromium
+    environment:
+      - PROJECT_NAME=wursthall
+      - UI_TEST_BROWSER=chromium
+
+  test-sqlmesh-demo-basic-chromium:
+    image: sqlmesh-base
+    container_name: test-sqlmesh-demo-basic-chromium
+    environment:
+      - PROJECT_NAME=basic
+      - UI_TEST_BROWSER=chromium
+
+  test-sqlmesh-demo-sushi-firefox:
+    image: sqlmesh-base
+    container_name: test-sqlmesh-demo-sushi-firefox
+    environment:
+      - PROJECT_NAME=sushi
+      - UI_TEST_BROWSER=firefox
+
+  test-sqlmesh-demo-wursthall-firefox:
+    image: sqlmesh-base
+    container_name: test-sqlmesh-demo-wursthall-firefox
+    environment:
+      - PROJECT_NAME=wursthall
+      - UI_TEST_BROWSER=firefox
+
+  test-sqlmesh-demo-basic-firefox:
+    image: sqlmesh-base
+    container_name: test-sqlmesh-demo-basic-firefox
+    environment:
+      - PROJECT_NAME=basic
+      - UI_TEST_BROWSER=firefox
+
+  test-sqlmesh-demo-sushi-webkit:
+    image: sqlmesh-base
+    container_name: test-sqlmesh-demo-sushi-webkit
+    environment:
+      - PROJECT_NAME=sushi
+      - UI_TEST_BROWSER=webkit
+
+  test-sqlmesh-demo-wursthall-webkit:
+    image: sqlmesh-base
+    container_name: test-sqlmesh-demo-wursthall-webkit
+    environment:
+      - PROJECT_NAME=wursthall
+      - UI_TEST_BROWSER=webkit
+
+  test-sqlmesh-demo-basic-webkit:
+    image: sqlmesh-base
+    container_name: test-sqlmesh-demo-basic-webkit
+    environment:
+      - PROJECT_NAME=basic
+      - UI_TEST_BROWSER=webkit
+

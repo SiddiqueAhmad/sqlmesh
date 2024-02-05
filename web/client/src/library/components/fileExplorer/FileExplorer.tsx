@@ -59,6 +59,8 @@ const FileExplorer = function FileExplorer({
 
   return (
     <div
+      data-testid="file-explorer"
+      role="tree"
       tabIndex={0}
       className={clsx(
         'flex flex-col w-full h-full overflow-hidden text-sm text-neutral-500 dark:text-neutral-400 font-regular select-none',
@@ -263,6 +265,7 @@ function FileExplorerArtifactContainer({
 
   return (
     <span
+      title={artifact.path}
       tabIndex={0}
       className={clsx(
         'w-full flex items-center group/file px-2',

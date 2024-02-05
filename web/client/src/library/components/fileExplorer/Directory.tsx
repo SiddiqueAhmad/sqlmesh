@@ -13,6 +13,7 @@ import { getEmptyImage } from 'react-dnd-html5-backend'
 import { useFileExplorer } from './context'
 import FileExplorer from './FileExplorer'
 import { useLongPress } from '@uidotdev/usehooks'
+
 const Directory = function Directory({
   directory,
   className,
@@ -355,8 +356,8 @@ const Directory = function Directory({
             <ul className={clsx(inActiveRange(directory) && 'bg-primary-5')}>
               {directory.directories.map(dir => (
                 <li
+                  // title={dir.path}
                   key={dir.id}
-                  title={dir.name}
                 >
                   <Directory
                     key={dir.id}
@@ -376,8 +377,8 @@ const Directory = function Directory({
             <ul className={clsx(inActiveRange(directory) && 'bg-primary-5')}>
               {directory.files.map(file => (
                 <li
+                  // title={file.path}
                   key={file.id}
-                  title={file.name}
                 >
                   <File
                     key={file.id}
@@ -404,10 +405,7 @@ function DirectoryDisplay({
 }): JSX.Element {
   return (
     <div className="w-full flex justify-between items-center py-[0.125rem]">
-      <span
-        title={directory.name}
-        className="overflow-hidden overflow-ellipsis whitespace-nowrap"
-      >
+      <span className="overflow-hidden overflow-ellipsis whitespace-nowrap">
         {truncate(directory.name, 50, 20)}
       </span>
       <span className="inline-block text-xs rounded-full px-2 bg-neutral-10 ml-2">

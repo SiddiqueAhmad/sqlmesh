@@ -133,6 +133,7 @@ export default function SearchList<
 
   return (
     <div
+      title="Search List"
       className={clsx('px-2 py-1 relative', className)}
       ref={ref}
       onKeyDown={(e: React.KeyboardEvent) => {
@@ -284,6 +285,7 @@ function SearchResult<T extends Record<string, any> = Record<string, any>>({
 }): JSX.Element {
   return (
     <div
+      title="Search List Results"
       onClick={onClick}
       className={clsx(
         'font-normal w-full overflow-hidden whitespace-nowrap overflow-ellipsis px-2',

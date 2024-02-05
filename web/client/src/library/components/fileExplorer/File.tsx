@@ -218,12 +218,7 @@ function File({
 
 function FileDisplay({ file }: { file: ModelFile }): JSX.Element {
   return (
-    <span
-      title={file.name}
-      className={clsx(
-        'inline-block overflow-hidden overflow-ellipsis py-[0.125rem]',
-      )}
-    >
+    <span className="inline-block overflow-hidden overflow-ellipsis py-[0.125rem]">
       {truncate(file.name, 50, 20)}
     </span>
   )

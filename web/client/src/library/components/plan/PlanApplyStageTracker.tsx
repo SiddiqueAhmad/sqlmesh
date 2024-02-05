@@ -74,6 +74,7 @@ export default function PlanApplyStageTracker(): JSX.Element {
       leaveFrom="opacity-100 scale-100"
       leaveTo="opacity-0 scale-95"
       className="my-2"
+      data-testid="plan-stage-tracker"
     >
       {isTrue(plan_options?.skip_tests) ? (
         <Banner
@@ -568,7 +569,7 @@ function PlanChanges(): JSX.Element {
           {isArrayNotEmpty(added) && (
             <PlanChangePreview
               className="w-full my-2"
-              headline="Added Models"
+              headline="Added"
               type={EnumPlanChangeType.Add}
             >
               <PlanChangePreview.Default
@@ -580,7 +581,7 @@ function PlanChanges(): JSX.Element {
           {isArrayNotEmpty(removed) && (
             <PlanChangePreview
               className="w-full my-2"
-              headline="Removed Models"
+              headline="Removed"
               type={EnumPlanChangeType.Remove}
             >
               <PlanChangePreview.Default
@@ -613,7 +614,7 @@ function PlanChanges(): JSX.Element {
           {isArrayNotEmpty(metadata) && (
             <PlanChangePreview
               className="my-2 w-full"
-              headline="Modified Metadata"
+              headline="Metadata"
               type={EnumPlanChangeType.Default}
             >
               <PlanChangePreview.Default
