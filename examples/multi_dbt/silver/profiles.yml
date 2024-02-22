@@ -1,0 +1,9 @@
+silver:
+
+  target: prod
+  outputs:
+    prod:
+      type: duckdb
+      path: 'local.duckdb'
+      threads: 1
+      schema: silver
