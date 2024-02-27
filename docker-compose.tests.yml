@@ -1,65 +1,19 @@
 version: "3.11"
 services:
-  test-sqlmesh-demo-sushi-chromium:
+  test-sqlmesh-example-sushi:
     image: sqlmesh-base
-    container_name: test-sqlmesh-demo-sushi-chromium
+    container_name: test-sqlmesh-example-sushi
     environment:
-      - PROJECT_NAME=sushi
-      - UI_TEST_BROWSER=chromium
+      - PROJECT=sushi
 
-  test-sqlmesh-demo-wursthall-chromium:
+  test-sqlmesh-example-wursthall:
     image: sqlmesh-base
-    container_name: test-sqlmesh-demo-wursthall-chromium
+    container_name: test-sqlmesh-example-wursthall
     environment:
-      - PROJECT_NAME=wursthall
-      - UI_TEST_BROWSER=chromium
+      - PROJECT=wursthall
 
-  test-sqlmesh-demo-basic-chromium:
+  test-sqlmesh-example-basic:
     image: sqlmesh-base
-    container_name: test-sqlmesh-demo-basic-chromium
+    container_name: test-sqlmesh-example-basic
     environment:
-      - PROJECT_NAME=basic
-      - UI_TEST_BROWSER=chromium
-
-  test-sqlmesh-demo-sushi-firefox:
-    image: sqlmesh-base
-    container_name: test-sqlmesh-demo-sushi-firefox
-    environment:
-      - PROJECT_NAME=sushi
-      - UI_TEST_BROWSER=firefox
-
-  test-sqlmesh-demo-wursthall-firefox:
-    image: sqlmesh-base
-    container_name: test-sqlmesh-demo-wursthall-firefox
-    environment:
-      - PROJECT_NAME=wursthall
-      - UI_TEST_BROWSER=firefox
-
-  test-sqlmesh-demo-basic-firefox:
-    image: sqlmesh-base
-    container_name: test-sqlmesh-demo-basic-firefox
-    environment:
-      - PROJECT_NAME=basic
-      - UI_TEST_BROWSER=firefox
-
-  test-sqlmesh-demo-sushi-webkit:
-    image: sqlmesh-base
-    container_name: test-sqlmesh-demo-sushi-webkit
-    environment:
-      - PROJECT_NAME=sushi
-      - UI_TEST_BROWSER=webkit
-
-  test-sqlmesh-demo-wursthall-webkit:
-    image: sqlmesh-base
-    container_name: test-sqlmesh-demo-wursthall-webkit
-    environment:
-      - PROJECT_NAME=wursthall
-      - UI_TEST_BROWSER=webkit
-
-  test-sqlmesh-demo-basic-webkit:
-    image: sqlmesh-base
-    container_name: test-sqlmesh-demo-basic-webkit
-    environment:
-      - PROJECT_NAME=basic
-      - UI_TEST_BROWSER=webkit
-
+      - PROJECT=basic

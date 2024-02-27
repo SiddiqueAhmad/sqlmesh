@@ -1,6 +1,5 @@
 FROM mcr.microsoft.com/playwright:v1.41.1-jammy 
 
-ENV UI_TEST_URL=http://0.0.0.0:8000
 ENV NODE_ENV=testing
 
 WORKDIR /sqlmesh
@@ -8,8 +7,7 @@ WORKDIR /sqlmesh
 COPY . .
 
 RUN apt-get update && \
-    apt-get -y \
-    install \
+    apt-get -y install \
     libnss3 \
     libatk-bridge2.0-0 \
     libdrm-dev \
@@ -17,19 +15,28 @@ RUN apt-get update && \
     libgbm-dev \
     libasound-dev \
     libatspi2.0-0 \
-    libxshmfence-dev
-RUN apt install -y python3.11 && \
-    apt install -y python3-pip && \
+    libxshmfence-dev \
+    python3.11 \
+    python3-pip && \
     update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
     update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 RUN pip3 install -e .[dev,web]
 RUN python3 setup.py develop
 RUN python3 /sqlmesh/web/server/openapi.py
+RUN mkdir -p /sqlmesh/examples/basic
+RUN sqlmesh -p /sqlmesh/examples/basic init postgres
 RUN npm install -g npm@latest && \
     npm --prefix /sqlmesh/web/client install --no-audit --no-fund --no-package-lock && \
     npm --prefix /sqlmesh/web/client run generate:api && \
     npm --prefix /sqlmesh/web/client run build
-RUN mkdir -p /sqlmesh/examples/basic
-RUN sqlmesh -p /sqlmesh/examples/basic init postgres
 
-CMD bash -c "(sqlmesh -p /sqlmesh/examples/$PROJECT_NAME ui --port 8000 --host 0.0.0.0 &) && sleep 5 && npm --prefix /sqlmesh/web/client run test:playwright -- ./tests/demo/demo.$PROJECT_NAME.spec"
+CMD BROWSERS="chromium firefox webkit" && \
+    PORT=8000 && \
+    for BROWSER in $BROWSERS; do \
+        (mkdir -p /sqlmesh/examples/$BROWSER/$PROJECT && \
+        cp -R /sqlmesh/examples/$PROJECT/. /sqlmesh/examples/$BROWSER/$PROJECT && \
+        sqlmesh -p /sqlmesh/examples/$BROWSER/$PROJECT ui --port $PORT --host 0.0.0.0 &) && \
+        sleep 5 && \
+        UI_TEST_URL=http://0.0.0.0:$PORT UI_TEST_BROWSER=$BROWSER npm --prefix /sqlmesh/web/client run test:playwright -- ./tests/demo/demo.$PROJECT.spec; \
+        PORT=$((PORT + 1)); \
+    done
