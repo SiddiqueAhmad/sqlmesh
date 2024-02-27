@@ -147,6 +147,58 @@ jobs:
           name: Run tests
           command: npm --prefix web/client run test
 
+  ui_test_examples:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.40.1-jammy 
+    resource_class: medium
+    steps:
+      - halt_unless_client
+      - checkout
+      - run:
+          name: Install packages
+          command: npm --prefix web/client ci
+      - run:
+          name: Install additional packages
+          command: apt-get update && \
+          apt-get -y install \
+          libnss3 \
+          libatk-bridge2.0-0 \
+          libdrm-dev \
+          libxkbcommon-dev \
+          libgbm-dev \
+          libasound-dev \
+          libatspi2.0-0 \
+          libxshmfence-dev
+      - run:
+          name: Install python
+          command: apt-get -y install \
+          python3.11 \
+          python3-pip && \
+          update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
+          update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+      - run:
+          name: Install python packages
+          command: pip3 install -e .[dev,web]
+      - run:
+          name: Set up develop build
+          command: python3 setup.py develop
+      - run:
+          name: Generate OpenAPI
+          command: python3 /sqlmesh/web/server/openapi.py
+      - run:
+          name: Setup basic example
+          command: mkdir -p /sqlmesh/examples/basic && sqlmesh -p /sqlmesh/examples/basic init postgres
+      - run:
+          name: Install npm packages
+          command: npm install -g npm@latest && \
+          npm --prefix /sqlmesh/web/client install --no-audit --no-fund --no-package-lock && \
+          npm --prefix /sqlmesh/web/client run generate:api && \
+          npm --prefix /sqlmesh/web/client run build
+      - run:
+          name: Run test for sushi
+          command: PROJECT=sushi; BROWSERS=\"chromium firefox webkit\"; PORT=8000; for BROWSER in $BROWSERS; do (mkdir -p /sqlmesh/examples/$BROWSER/$PROJECT && cp -R /sqlmesh/examples/$PROJECT/. /sqlmesh/examples/$BROWSER/$PROJECT && sqlmesh -p /sqlmesh/examples/$BROWSER/$PROJECT ui --port $PORT --host 0.0.0.0 &) && sleep 5 && UI_TEST_URL=http://0.0.0.0:$PORT UI_TEST_BROWSER=$BROWSER npm --prefix /sqlmesh/web/client run test:playwright -- ./tests/demo/demo.$PROJECT.spec; PORT=$((PORT + 1)); done; done
+
+
   airflow_docker_tests:
     machine:
       image: ubuntu-2204:2022.10.2

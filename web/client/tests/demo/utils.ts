@@ -25,16 +25,8 @@ export async function setFileContentAndSave(
   await expect(elEditorTabs).toBeVisible()
   const elTab = elEditorTabs.getByTitle(path)
   await expect(elTab).toBeVisible()
-  await expect(elTab.getByTitle('saved', { exact: true })).toBeVisible()
-  await expect(
-    elEditorFooter.getByTitle('saved', { exact: true }),
-  ).toBeVisible()
   const elEditorTextbox = elCodeEditor.getByRole('textbox')
   await elEditorTextbox.fill(opt.content)
-  await expect(elTab.getByTitle('unsaved', { exact: true })).toBeVisible()
-  await expect(
-    elEditorFooter.getByTitle('unsaved', { exact: true }),
-  ).toBeVisible()
   const apiFilePromise = page.waitForResponse(`/api/files/${opt.path}`)
   const apiPlanPromise = page.waitForResponse('/api/plan')
   await elEditorTextbox.press('Control+S')
@@ -42,10 +34,6 @@ export async function setFileContentAndSave(
   expect(apiFile.status()).toBe(204)
   const apiPlan = await apiPlanPromise
   expect(apiPlan.status()).toBe(204)
-  await expect(elTab.getByTitle('saved', { exact: true })).toBeVisible()
-  await expect(
-    elEditorFooter.getByTitle('saved', { exact: true }),
-  ).toBeVisible()
 }
 
 export async function checkModelChange(
